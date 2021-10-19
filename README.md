@@ -11,8 +11,17 @@ This is a team profile generator that generates a team profile html file by prom
 * Git
 * GitHub
 
+## Installation
+
+1) Open your command line
+2) Navigate to the repo file
+3) Type "npm install" to install all dependecies for this project
+4) Type "node index.js" in your command line to activate the prompt and then answer the questions
+5) The generated file will then appear as "index.html" in your /dist folder
+
 ## Demo
 
+https://user-images.githubusercontent.com/89226867/137864641-557aea83-303f-48d2-854d-281be592f8b2.mov
 
 ## Tests Screenshot 
 
