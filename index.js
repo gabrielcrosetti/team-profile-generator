@@ -219,7 +219,13 @@ class Prompt {
 
                 } else if (employeeType === 'I am done entering my team info') {
 
-                   
+                    // This function writes the new html file in index.html
+                    const pagehtml = generateHTML(this.getTeamArray());
+                    fs.writeFile('./dist/index.html', pagehtml, err => {
+                        if (err) throw new Error(err);
+
+                        console.log('Your page has been created! Check out index.html in the dist/ folder to see it');
+                    });
                 }
             });
 
