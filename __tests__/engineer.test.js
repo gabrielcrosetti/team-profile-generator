@@ -1,9 +1,9 @@
 const { it, expect } = require('@jest/globals');
-const Employee = require('../lib/Employee');
+const Employee = require('../lib/employee');
 const Engineer = require("../lib/engineer");
 
 describe("Engineer", () => {
-    it("can create a new employee and set a name", () => {
+    it("can create a new engineer and set a name", () => {
         const name = "Gabe";
         const engineer = new Engineer(name)
 
@@ -26,6 +26,15 @@ describe("Engineer", () => {
         const engineer = new Engineer("Gabe", 1,"test@test.com", github)
 
         expect(engineer.github).toEqual(github)
-    })
+    });
+    it("to see if get github method works", () => {
+        const engineer = new Engineer("Gabe", 1,"test@test.com","gabriel-crosetti")
 
-})
+        expect(engineer.getGithub()).toEqual("gabriel-crosetti")
+    });
+    it("to see if getRole method works", () => {
+        const engineer = new Engineer('Manager1');
+    
+        expect(engineer.getRole()).toEqual('Engineer');
+    });
+    })

@@ -1,4 +1,3 @@
-
 const Manager = require('../lib/manager');
 const Intern = require('../lib/intern');
 const Engineer = require('../lib/engineer');
@@ -18,12 +17,109 @@ const generateManager = managerTitle => {
                     </svg> Manager</h6>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Id: ${manager.getId()}</li>
+                <li class="list-group-item">ID: ${manager.getId()}</li>
                 <li class="list-group-item">Email: <a href="mailto:">${manager.getEmail()}</a></li>
-                <li class="list-group-item">Office number: ${manager.getOfficeNumber()}</li>
+                <li class="list-group-item">Office Number: ${manager.getOfficeNumber()}</li>
             </ul>
         </div>
     </div>`
     }
     ).join('');
+};
+
+// Intern card is generated 
+
+const generateIntern = internTitle => {
+    return internTitle.map(intern => {
+        return `<div class="col">
+    <div class="card shadow-lg" style="width: 18rem;">
+        <div class="card-body identity">
+            <h5 class="card-title">${intern.getName()}</h5>
+            <h6 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+          </svg>  Intern</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${intern.getId()}</li>
+            <li class="list-group-item">Email: <a href="mailto:">${intern.getEmail()}</a></li>
+            <li class="list-group-item">School: ${intern.getSchool()}</li>
+        </ul>
+    </div>
+    </div>`
+    }
+    ).join('');
+};
+
+// Engineer card is generated 
+
+const generateEngineer = engineerTitle => {
+    return engineerTitle.map(engineer => {
+        return `<div class="col">
+    <div class="card shadow-lg" style="width: 18rem;">
+        <div class="card-body identity">
+            <h5 class="card-title">${engineer.getName()}</h5>
+            <h6 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench" viewBox="0 0 16 16">
+                <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/>
+              </svg>  Engineer</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${engineer.getId()}</li>
+            <li class="list-group-item">Email: <a href="mailto:">${engineer.getEmail()}</a></li>
+            <li class="list-group-item">GitHub: <a target="_blank" href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a></li>
+        </ul>
+    </div>
+</div>`
+    }).join('');
+};
+
+const generateCards = teamArray => {
+    let cardsArray = [];
+
+    const managerTitle = teamArray.filter(team => {
+        return team.getRole() === 'Manager';
+    });
+    const internTitle = teamArray.filter(team => {
+        return team.getRole() === 'Intern';
+    });
+    const engineerTitle = teamArray.filter(team => {
+        return team.getRole() === 'Engineer';
+    });
+    if (managerTitle) {
+        cardsArray.push(generateManager(managerTitle));
+    }
+    if (internTitle) {
+        cardsArray.push(generateIntern(internTitle));
+    }
+    if (engineerTitle) {
+        cardsArray.push(generateEngineer(engineerTitle));
+    }
+    return cardsArray.join('');
+};
+
+// Generates the index.html page
+module.exports = cardsArray => {
+    return ` 
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Team Profile</title>
+</head>
+<body>
+    <header class="text-center">
+        <h1>My Team</h1>
+    </header>
+    <main class="container my-4">
+        <div class="row">
+            ${generateCards(cardsArray)}
+        </div>
+    </main>
+</body>
+</html>
+    `;
 };
